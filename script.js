@@ -1,3 +1,28 @@
+const wsLoaderOverlay = document.getElementById("ws-loader");
+function showLoader(message){
+  if(!wsLoaderOverlay) return;
+  if(message){
+    const textEl = wsLoaderOverlay.querySelector(".ws-loader-text");
+    if(textEl) textEl.textContent = message;
+  }
+  wsLoaderOverlay.classList.remove("hidden");
+  wsLoaderOverlay.setAttribute("aria-busy","true");
+}
+function hideLoader(){
+  if(!wsLoaderOverlay) return;
+  wsLoaderOverlay.classList.add("hidden");
+  wsLoaderOverlay.setAttribute("aria-busy","false");
+}
+// expose globally for programmatic control if needed
+window.WorkseerLoader = { show: showLoader, hide: hideLoader };
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  showLoader("Loading Workseer…");
+});
+window.addEventListener("load", ()=>{
+  setTimeout(hideLoader, 500);
+});
+
 let btn=document.querySelector("#btn")
 let content=document.querySelector("#content")
 let voice=document.querySelector("#voice")
