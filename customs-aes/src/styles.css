@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Material + Tailwind base resets */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Utility classes to mirror the screenshot styles */
+.status-chip {
+  @apply rounded-full text-xs font-medium px-3 py-1 inline-flex items-center gap-2;
+}
+.status-chip.hold { @apply bg-red-100 text-red-700; }
+.status-chip.open { @apply bg-green-100 text-green-700; }
+.status-chip.pending { @apply bg-amber-100 text-amber-700; }
+.status-chip.review { @apply bg-green-200 text-green-800; }
+
+.card {
+  @apply bg-white rounded-md shadow border border-gray-200;
+}
+
+.quick-filter .mat-mdc-standard-chip {
+  @apply bg-gray-100 text-gray-800;
+}
