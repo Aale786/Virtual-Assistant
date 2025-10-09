@@ -582,7 +582,7 @@
                       [(ngModel)]="formData.licenseReference"
                       name="licenseReference"
                     />
-                    <div class="error-message" *ngIf="errors.licenseReference">{{ errors.licenseReference }}</div>
+                    <div class="error-message" *ngIf="errors['licenseReference']">{{ errors['licenseReference'] }}</div>
                   </div>
 
                   <div class="form-group">
@@ -598,7 +598,7 @@
                       <option value="DOT">DOT - Transportation Department</option>
                       <option value="DHS">DHS - Homeland Security</option>
                     </select>
-                    <div class="error-message" *ngIf="errors.issuingAgency">{{ errors.issuingAgency }}</div>
+                    <div class="error-message" *ngIf="errors['issuingAgency']">{{ errors['issuingAgency'] }}</div>
                   </div>
                 </div>
 
@@ -611,7 +611,7 @@
                       [(ngModel)]="formData.issueDate"
                       name="issueDate"
                     />
-                    <div class="error-message" *ngIf="errors.issueDate">{{ errors.issueDate }}</div>
+                    <div class="error-message" *ngIf="errors['issueDate']">{{ errors['issueDate'] }}</div>
                   </div>
 
                   <div class="form-group">
@@ -622,7 +622,7 @@
                       [(ngModel)]="formData.expirationDate"
                       name="expirationDate"
                     />
-                    <div class="error-message" *ngIf="errors.expirationDate">{{ errors.expirationDate }}</div>
+                    <div class="error-message" *ngIf="errors['expirationDate']">{{ errors['expirationDate'] }}</div>
                   </div>
                 </div>
 
@@ -662,7 +662,7 @@
                       <option value="China">China</option>
                       <option value="India">India</option>
                     </select>
-                    <div class="error-message" *ngIf="errors.countryOfExport">{{ errors.countryOfExport }}</div>
+                    <div class="error-message" *ngIf="errors['countryOfExport']">{{ errors['countryOfExport'] }}</div>
                   </div>
 
                   <div class="form-group">
@@ -680,7 +680,7 @@
                       <option value="CAD">CAD</option>
                       <option value="AUD">AUD</option>
                     </select>
-                    <div class="error-message" *ngIf="errors.licenseCurrency">{{ errors.licenseCurrency }}</div>
+                    <div class="error-message" *ngIf="errors['licenseCurrency']">{{ errors['licenseCurrency'] }}</div>
                   </div>
                 </div>
 
@@ -696,7 +696,7 @@
                     <option value="Shipper">Shipper</option>
                     <option value="Manufacturer">Manufacturer</option>
                   </select>
-                  <div class="error-message" *ngIf="errors.authorizedLicensee">{{ errors.authorizedLicensee }}</div>
+                  <div class="error-message" *ngIf="errors['authorizedLicensee']">{{ errors['authorizedLicensee'] }}</div>
                 </div>
               </div>
             </div>
@@ -726,7 +726,7 @@
                         <span class="radio-option-label">Country</span>
                       </label>
                     </div>
-                    <div class="error-message" *ngIf="errors.trackUsageBy">{{ errors.trackUsageBy }}</div>
+                    <div class="error-message" *ngIf="errors['trackUsageBy']">{{ errors['trackUsageBy'] }}</div>
                   </div>
 
                   <div class="form-group">
@@ -741,7 +741,7 @@
                         <span class="radio-option-label">HS Code</span>
                       </label>
                     </div>
-                    <div class="error-message" *ngIf="errors.trackItemsBy">{{ errors.trackItemsBy }}</div>
+                    <div class="error-message" *ngIf="errors['trackItemsBy']">{{ errors['trackItemsBy'] }}</div>
                   </div>
                 </div>
 
@@ -761,7 +761,7 @@
                       <span class="radio-option-label">Both (Value &amp; Quantity)</span>
                     </label>
                   </div>
-                  <div class="error-message" *ngIf="errors.licenseLimit">{{ errors.licenseLimit }}</div>
+                  <div class="error-message" *ngIf="errors['licenseLimit']">{{ errors['licenseLimit'] }}</div>
                 </div>
 
                 <div class="form-group">
@@ -773,7 +773,7 @@
                     <option value="Sales Order">Sales Order</option>
                     <option value="Shipment">Shipment</option>
                   </select>
-                  <div class="error-message" *ngIf="errors.decrementType">{{ errors.decrementType }}</div>
+                  <div class="error-message" *ngIf="errors['decrementType']">{{ errors['decrementType'] }}</div>
                 </div>
               </div>
             </div>
@@ -822,7 +822,7 @@
                           name="totalLicensedQuantity"
                           (ngModelChange)="handleChange('totalLicensedQuantity', $event)"
                         />
-                        <div class="error-message" *ngIf="errors.totalLicensedQuantity">{{ errors.totalLicensedQuantity }}</div>
+                        <div class="error-message" *ngIf="errors['totalLicensedQuantity']">{{ errors['totalLicensedQuantity'] }}</div>
                       </div>
 
                       <div class="form-group">
@@ -840,7 +840,7 @@
                             (ngModelChange)="handleChange('totalLicensedValue', $event)"
                           />
                         </div>
-                        <div class="error-message" *ngIf="errors.totalLicensedValue">{{ errors.totalLicensedValue }}</div>
+                        <div class="error-message" *ngIf="errors['totalLicensedValue']">{{ errors['totalLicensedValue'] }}</div>
                       </div>
                     </div>
 

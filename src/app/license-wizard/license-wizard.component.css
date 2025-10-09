@@ -1,0 +1,391 @@
+:root {}
+
+.license-wizard {
+  /* Scope all CSS variables within component container */
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F1F5F9;
+  --gray-200: #E2E8F0;
+  --gray-400: #CBD5E1;
+  --gray-600: #475569;
+  --gray-800: #1E293B;
+  --blue-50: #EFF6FF;
+  --blue-100: #DBEAFE;
+  --blue-500: #3B82F6;
+  --blue-700: #1D4ED8;
+  --orange-500: #F97316;
+  --orange-600: #EA580C;
+  --green-500: #22C55E;
+  --red-500: #EF4444;
+  --amber-500: #F59E0B;
+  --teal-500: #14B8A6;
+
+  --bg: var(--gray-50);
+  --card: var(--white);
+  --surface-sub: var(--gray-100);
+  --surface-title: var(--gray-100);
+  --surface-subtitle: var(--gray-50);
+  --surface-table-header: var(--gray-100);
+  --surface-table-alt: var(--gray-50);
+
+  --text: var(--gray-800);
+  --text-primary: var(--gray-800);
+  --text-secondary: var(--gray-600);
+  --text-muted: var(--gray-600);
+  --placeholder: var(--gray-600);
+  --muted: var(--gray-600);
+
+  --brand: var(--orange-500);
+  --brand-primary: var(--orange-500);
+  --brand-primary-hover: var(--orange-600);
+  --brand-700: var(--orange-600);
+  --brand-secondary: var(--blue-500);
+  --brand-secondary-hover: var(--blue-700);
+
+  --status-success: var(--green-500);
+  --status-success-bg: #ECFDF5;
+  --status-success-text: var(--green-500);
+  --status-success-border: var(--green-500);
+
+  --status-warning: var(--amber-500);
+  --status-warning-bg: #FFFBEB;
+  --status-warning-text: var(--amber-500);
+  --status-warning-border: var(--amber-500);
+
+  --danger: var(--red-500);
+  --status-error: var(--red-500);
+  --status-error-bg: #FEF2F2;
+  --status-error-text: var(--red-500);
+  --status-error-border: var(--red-500);
+
+  --status-info-bg: #F0FDFA;
+  --status-info-text: var(--teal-500);
+  --status-info-border: var(--teal-500);
+
+  --border: var(--gray-200);
+  --border-light: var(--gray-100);
+  --border-default: var(--gray-200);
+  --border-strong: var(--gray-400);
+  --border-cell: var(--gray-200);
+
+  --section-primary: var(--blue-500);
+  --section-primary-700: var(--blue-700);
+  --section-bg: var(--gray-50);
+  --section-border: var(--gray-200);
+  --section-text: var(--gray-800);
+
+  --tint-brand: rgba(59, 130, 246, 0.1);
+  --tint-success: rgba(34, 197, 94, 0.1);
+  --tint-danger: rgba(239, 68, 68, 0.1);
+  --tint-blue: var(--blue-50);
+
+  --brand-tint-10: var(--blue-50);
+  --brand-tint-16: var(--blue-100);
+  --brand-tint-35: var(--blue-100);
+
+  --table-hover: var(--blue-50);
+  --table-active: var(--blue-100);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  --focus-ring: rgba(59, 130, 246, 0.3);
+
+  color: var(--text-secondary);
+}
+
+.license-wizard * {
+  box-sizing: border-box;
+}
+
+.license-wizard .navbar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.license-wizard .nav-container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.license-wizard .nav-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.license-wizard .btn-back {
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.license-wizard .btn-back:hover {
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.license-wizard .btn-primary {
+  padding: 8px 16px;
+  background: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.license-wizard .btn-primary:hover {
+  background: var(--orange-600);
+  border-color: var(--orange-600);
+}
+
+.license-wizard .logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.license-wizard .company-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+}
+
+.license-wizard .container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 16px 32px;
+}
+
+/* Summary Card */
+.license-wizard .header-card {
+  background: var(--brand-tint-10);
+  border: 1px solid var(--brand-tint-35);
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.license-wizard .header-card > span { font-size: 64px; line-height: 1; flex-shrink: 0; }
+.license-wizard .header-text { display: flex; flex-direction: column; gap: 4px; }
+.license-wizard .header-title { font-size: 32px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.license-wizard .header-subtitle { font-size: 16px; color: var(--text-muted); font-weight: 500; line-height: 1.4; }
+
+/* Progress Card */
+.license-wizard .progress-card { background: var(--card); border: 1px solid var(--border-default); border-radius: 8px; padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+.license-wizard .progress-steps { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.license-wizard .progress-nav { display: flex; align-items: center; gap: 0; flex: 1; justify-content: center; }
+.license-wizard .progress-btn { background: var(--card); border: 1px solid var(--border-default); color: var(--text-muted); padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+.license-wizard .progress-btn:hover:not(:disabled) { background: var(--surface-sub); color: var(--text-primary); }
+.license-wizard .progress-btn:disabled { background: var(--surface-sub); color: var(--text-muted); opacity: 0.5; cursor: not-allowed; }
+.license-wizard .progress-btn.next { background: var(--brand-secondary); border-color: var(--brand-secondary); color: #ffffff; }
+.license-wizard .progress-btn.next:hover:not(:disabled) { background: var(--blue-700); border-color: var(--blue-700); color: #ffffff; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+.license-wizard .step { display: flex; align-items: center; position: relative; flex-shrink: 0; }
+.license-wizard .step:not(:last-child) { margin-right: -8px; }
+.license-wizard .step-content { background: #4a4a4a; color: #ffffff; padding: 10px 30px 10px 22px; font-weight: 500; font-size: 13px; display: flex; align-items: center; gap: 8px; white-space: nowrap; position: relative; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%, 8px 50%); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.license-wizard .step:first-child .step-content { clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%); padding-left: 22px; }
+.license-wizard .step:last-child .step-content { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 8px 50%); padding-right: 22px; }
+.license-wizard .step.active .step-content, .license-wizard .step.completed .step-content { background: #2d2d2d; color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+.license-wizard .step-number { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.15); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+.license-wizard .step.active .step-number, .license-wizard .step.completed .step-number { background: rgba(255,255,255,0.2); }
+
+/* Form Card */
+.license-wizard .form-card { background: var(--card); border: 1px solid var(--border-default); border-radius: 8px; box-shadow: var(--shadow-sm); overflow: hidden; padding: 32px; }
+.license-wizard .step-heading { font-size: 20px; font-weight: 600; color: var(--text-primary); margin-bottom: 24px; padding: 0; background: transparent; border: none; display: flex; align-items: center; gap: 10px; }
+
+/* Section headers */
+.license-wizard .section-header-block { font-size: 14px; font-weight: 600; color: var(--text); margin: 0 -32px 20px -32px; padding: 12px 32px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-bottom: 1px solid var(--section-border); display: flex; align-items: center; justify-content: space-between; }
+
+/* Column blocks */
+.license-wizard .column-block { background: var(--card); border: 1px solid var(--border-strong); border-radius: 6px; overflow: hidden; transition: all 0.2s ease; box-shadow: var(--shadow-sm); }
+.license-wizard .column-block:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.license-wizard .column-header { font-size: 15px; font-weight: 600; color: var(--text-primary); padding: 12px 20px; background: var(--tint-brand); border-bottom: 1px solid var(--border-default); }
+.license-wizard .column-header::first-letter { font-size: 22px; }
+.license-wizard .column-header-left { background: var(--tint-brand); }
+.license-wizard .column-header-right { background: var(--tint-brand); }
+.license-wizard .column-body { padding: 20px; display: flex; flex-direction: column; gap: 24px; }
+.license-wizard .two-column-layout { display: flex; gap: 24px; }
+.license-wizard .column { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+.license-wizard .column-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* Forms */
+.license-wizard .form-group { display: flex; flex-direction: column; }
+.license-wizard .form-label { font-size: 11px; font-weight: 500; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.license-wizard .form-label.required::after { content: ' *'; color: var(--danger); }
+.license-wizard .form-input, .license-wizard .form-select, .license-wizard .form-textarea { padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; color: var(--text); }
+.license-wizard .form-input:hover, .license-wizard .form-select:hover, .license-wizard .form-textarea:hover { border-color: var(--brand-secondary); }
+.license-wizard .form-input:focus, .license-wizard .form-select:focus, .license-wizard .form-textarea:focus { outline: none; border-color: var(--brand-secondary); box-shadow: 0 0 0 3px var(--focus-ring); }
+.license-wizard .form-select { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e"); background-position: right 8px center; background-repeat: no-repeat; background-size: 16px; padding-right: 32px; appearance: none; }
+.license-wizard .form-textarea { resize: vertical; min-height: 90px; font-family: inherit; }
+.license-wizard .error-message { color: var(--danger); font-size: 12px; margin-top: 4px; }
+.license-wizard .help-text { color: var(--muted); font-size: 12px; margin-top: 4px; font-style: italic; }
+
+/* Radio and Checkbox */
+.license-wizard .radio-group { display: flex; flex-direction: row; gap: 24px; }
+.license-wizard .radio-option { display: flex; align-items: center; gap: 10px; padding: 0; border: none; border-radius: 0; background: transparent; cursor: pointer; transition: all 0.2s; }
+.license-wizard .radio-option input[type="radio"] { margin: 0; width: 18px; height: 18px; accent-color: var(--gray-800); cursor: pointer; }
+.license-wizard .radio-option-label { font-weight: 400; color: var(--text); font-size: 14px; cursor: pointer; }
+
+.license-wizard .checkbox-wrapper { display: inline-flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border: 1px solid var(--border-default); border-radius: 6px; background: var(--card); cursor: pointer; transition: all 0.2s; max-width: fit-content; }
+.license-wizard .checkbox-wrapper:hover { background: var(--tint-brand); border-color: var(--border-default); }
+.license-wizard .checkbox-wrapper.checked { background: var(--tint-brand); border-color: var(--border-default); }
+.license-wizard .checkbox-wrapper input[type="checkbox"] { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--gray-800); cursor: pointer; }
+.license-wizard .checkbox-label { flex: 1; }
+.license-wizard .checkbox-title { font-weight: 500; color: var(--text); font-size: 14px; }
+.license-wizard .checkbox-description { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* Number Input with Prefix */
+.license-wizard .input-with-prefix { position: relative; display: flex; align-items: center; }
+.license-wizard .input-prefix { position: absolute; left: 12px; color: var(--muted); font-weight: 500; pointer-events: none; }
+.license-wizard .input-with-prefix input { padding-left: 28px; }
+
+/* Conditional Section */
+.license-wizard .conditional-section { background: transparent; border: none; border-radius: 0; padding: 20px 0; margin-top: 10px; }
+.license-wizard .conditional-header { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.license-wizard .conditional-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.license-wizard .conditional-fields > div { display: flex; flex-direction: column; gap: 20px; }
+
+/* Read-only fields */
+.license-wizard .form-input[readonly] { background: var(--surface-sub); color: var(--text-muted); cursor: not-allowed; border-style: dashed; }
+
+/* Summary layout */
+.license-wizard .summary-layout { display: flex; gap: 32px; }
+.license-wizard .summary-left { width: 25%; display: flex; flex-direction: column; gap: 16px; }
+.license-wizard .summary-right { flex: 1; }
+
+.license-wizard .summary-card { background: var(--brand-tint-10); border: 1px solid var(--brand-tint-35); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-lg); }
+.license-wizard .summary-header { background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-secondary-hover) 100%); padding: 16px 20px; border-bottom: 2px solid var(--brand-secondary-hover); display: flex; justify-content: space-between; align-items: center; }
+.license-wizard .summary-title { font-size: 15px; font-weight: 600; color: white; }
+.license-wizard .btn-edit { background: white; color: var(--brand-secondary); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+.license-wizard .btn-edit:hover { background: var(--status-info-bg); color: var(--brand-secondary-hover); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.license-wizard .summary-body { padding: 16px; }
+.license-wizard .summary-section { margin-bottom: 18px; }
+.license-wizard .summary-section:last-child { margin-bottom: 0; }
+.license-wizard .summary-section-title { font-size: 11px; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border-default); display: flex; align-items: center; justify-content: space-between; }
+.license-wizard .status-chip { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.license-wizard .status-approved { background: var(--status-success-bg); color: #065f46; border: 1px solid #065f46; }
+.license-wizard .summary-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--bg); }
+.license-wizard .summary-item:last-child { border-bottom: none; }
+.license-wizard .summary-key { font-size: 11px; color: var(--muted); font-weight: 500; }
+.license-wizard .summary-value { font-size: 12px; color: #000000; font-weight: 700; text-align: right; max-width: 60%; }
+.license-wizard .summary-value-large { font-size: 14px; color: #000000; font-weight: 700; text-align: right; max-width: 60%; }
+.license-wizard .summary-badge { display: inline-block; padding: 4px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+.license-wizard .badge-success { background: var(--brand-tint-16); color: var(--text-primary); border: 1px solid var(--brand-tint-35); }
+.license-wizard .badge-info { background: var(--status-info-bg); color: #065f46; }
+
+.license-wizard .summary-two-columns { display: flex; gap: 24px; }
+.license-wizard .summary-column { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+/* Data Card */
+.license-wizard .data-card { background: var(--card); border: 1px solid var(--border-strong); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.2s ease; }
+.license-wizard .data-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.license-wizard .data-card-header { background: var(--tint-brand); padding: 12px 20px; border-bottom: 1px solid var(--border-default); font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.license-wizard .data-card-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.license-wizard .btn-add { background: var(--brand-primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 4px; }
+.license-wizard .btn-add:hover { background: var(--brand-primary-hover); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.license-wizard .btn-add-blue { background: var(--brand-secondary); }
+.license-wizard .btn-add-blue:hover { background: var(--blue-700); }
+.license-wizard .btn-filter { background: white; color: var(--text-secondary); border: 1px solid var(--border-default); padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 4px; }
+.license-wizard .btn-filter:hover { border-color: var(--brand-secondary); color: var(--brand-secondary); }
+.license-wizard .data-card-body { padding: 16px; }
+
+/* Data Table */
+.license-wizard .data-table { width: 100%; border-collapse: collapse; border-radius: 0; }
+.license-wizard .data-table th { text-align: left; font-size: 11px; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; background: var(--surface-table-header); border-bottom: 1px solid var(--border-light); }
+.license-wizard .data-table tbody tr { background: var(--card); }
+.license-wizard .data-table tbody tr:nth-child(even) { background: var(--surface-table-alt); }
+.license-wizard .data-table td { padding: 10px 12px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--border-cell); }
+.license-wizard .data-table tr:last-child td { border-bottom: none; }
+.license-wizard .data-table tbody tr:hover { background: var(--table-hover); }
+.license-wizard .data-table tbody tr.active { background: var(--table-active); }
+
+/* Country List */
+.license-wizard .country-name-with-flag { display: flex; align-items: center; gap: 8px; }
+.license-wizard .country-flag { width: 16px; height: 12px; display: inline-block; background-size: cover; background-position: center; border-radius: 2px; flex-shrink: 0; }
+.license-wizard .flag-kh { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><path fill="%23032ea1" d="M0 0h640v480H0z"/><path fill="%23e00025" d="M0 120h640v240H0z"/><path fill="%23fff" d="M231 195.3h12v38.4h-12zm-24 19.2h60v57.6h-60zm156 0v19.2h-36v-19.2h12v-19.2h12v19.2zm-36-19.2h12v19.2h-12zm24 38.4h12v19.2h-12zm-96-38.4h12v76.8h-12zm48 0h12v76.8h-12zm-24 0h12v76.8h-12z"/></svg>'); }
+.license-wizard .flag-bg { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><path fill="%23fff" d="M0 0h640v160H0z"/><path fill="%2300966e" d="M0 160h640v160H0z"/><path fill="%23d62612" d="M0 320h640v160H0z"/></svg>'); }
+.license-wizard .flag-de { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><path fill="%23000" d="M0 0h640v160H0z"/><path fill="%23D00" d="M0 160h640v160H0z"/><path fill="%23FFCE00" d="M0 320h640v160H0z"/></svg>'); }
+.license-wizard .flag-jp { background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480"><rect fill="%23fff" width="640" height="480"/><circle cx="320" cy="240" r="96" fill="%23bc002d"/></svg>'); }
+
+/* Action Icons */
+.license-wizard .action-icons { display: flex; gap: 8px; align-items: center; }
+.license-wizard .icon-btn { background: none; border: none; cursor: pointer; padding: 6px; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; transition: all 0.2s ease; }
+.license-wizard .icon-btn:hover { transform: scale(1.1); background: #fff4ec; }
+.license-wizard .icon-edit { color: #3b82f6; font-size: 14px; }
+.license-wizard .icon-edit:hover { color: #2563eb; }
+.license-wizard .icon-delete { color: #ef4444; font-size: 14px; }
+.license-wizard .icon-delete:hover { color: #dc2626; }
+
+/* License Usage Tracking - Tree View */
+.license-wizard .usage-tree { --tree-clr: var(--brand-secondary); --tree-clr-parent: var(--orange-500); --tree-font-size: 14px; --tree-offset: 2rem; --tree-thickness: 3px; --tree-style: solid; }
+.license-wizard .usage-eccn-group-tree { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border-default); }
+.license-wizard .usage-eccn-group-tree:last-child { margin-bottom: 0; border-bottom: none; padding-bottom: 0; }
+.license-wizard .usage-tree ul { display: grid; list-style: none; font-size: var(--tree-font-size); padding-left: 0; margin: 0; margin-top: 24px; }
+.license-wizard .usage-tree li { line-height: 1.6; padding-inline-start: var(--tree-offset); border-left: var(--tree-thickness) var(--tree-style) var(--tree-clr); position: relative; text-indent: 0.5rem; padding-top: 6px; padding-bottom: 6px; }
+.license-wizard .usage-tree li:last-child { border-color: transparent; }
+.license-wizard .usage-tree li::before { content: ''; position: absolute; top: 0; left: calc(var(--tree-thickness) * -1); width: var(--tree-offset); height: 50%; border-left: var(--tree-thickness) var(--tree-style) var(--tree-clr); border-bottom: var(--tree-thickness) var(--tree-style) var(--tree-clr); }
+.license-wizard .usage-tree li::after { content: ''; position: absolute; width: 8px; height: 8px; border-radius: 50%; background-color: var(--tree-clr); top: 50%; left: calc(var(--tree-offset) - var(--tree-thickness)); transform: translate(-50%, -50%); }
+.license-wizard .usage-eccn-parent { position: relative; font-size: 15px; font-weight: 600; color: var(--text-primary); font-family: inherit; padding-left: 0; margin-bottom: 16px; line-height: 1.6; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.license-wizard .btn-see-all { background: transparent; border: none; color: var(--brand-secondary); font-size: 12px; font-weight: 500; cursor: pointer; padding: 0; transition: all 0.2s ease; }
+.license-wizard .btn-see-all:hover { text-decoration: underline; }
+
+.license-wizard .usage-transaction-line { display: grid; grid-template-columns: 120px 200px 80px 120px; gap: 16px; align-items: center; padding: 6px 12px 6px 6px; background: transparent; transition: all 0.2s ease; border-radius: 4px; width: 100%; }
+.license-wizard .usage-transaction-line:hover { background: var(--tint-brand); transform: translateX(4px); }
+
+.license-wizard .usage-summary-bar { margin-bottom: 24px; padding: 16px; background: var(--surface-sub); border-radius: 6px; }
+.license-wizard .usage-bar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.license-wizard .usage-bar-title { font-size: 12px; font-weight: 600; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+.license-wizard .usage-bar-stats { display: flex; gap: 24px; font-size: 12px; }
+.license-wizard .usage-stat-item { display: flex; align-items: center; gap: 6px; }
+.license-wizard .usage-stat-dot { width: 10px; height: 10px; border-radius: 50%; }
+.license-wizard .usage-stat-dot.utilized { background: #3B82F6; }
+.license-wizard .usage-stat-dot.remaining { background: #BFDBFE; }
+.license-wizard .usage-stat-label { color: var(--text-muted); font-weight: 500; }
+.license-wizard .usage-stat-value { color: var(--text-primary); font-weight: 700; }
+.license-wizard .usage-progress-bar { width: 100%; height: 16px; background: #BFDBFE; border-radius: 8px; overflow: hidden; position: relative; }
+.license-wizard .usage-progress-fill { height: 100%; background: #3B82F6; transition: width 0.3s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: white; font-size: 10px; font-weight: 600; }
+
+.license-wizard .usage-transaction-left { display: contents; }
+.license-wizard .usage-transaction-id { font-size: 13px; font-weight: 500; color: var(--text-secondary); font-family: inherit; }
+.license-wizard .usage-country-badge { font-size: 12px; padding: 3px 10px; background: var(--surface-sub); border-radius: 9999px; color: var(--text-primary); font-weight: 500; display: flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; }
+.license-wizard .usage-transaction-qty { font-size: 12px; font-weight: 500; color: var(--text-secondary); display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.license-wizard .usage-qty-label { font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; text-align: right; }
+.license-wizard .usage-qty-value { font-size: 13px; font-weight: 600; color: var(--text-primary); text-align: right; }
+.license-wizard .usage-transaction-right { display: contents; }
+.license-wizard .usage-transaction-amount { font-size: 14px; font-weight: 700; color: var(--text-primary); display: flex; flex-direction: column; align-items: flex-end; }
+.license-wizard .usage-amount-label { font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.license-wizard .usage-amount-value { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .license-wizard .two-column-layout { flex-direction: column; gap: 24px; }
+  .license-wizard .column-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .license-wizard .container { padding: 16px; }
+}
