@@ -1,0 +1,890 @@
+<div class="license-wizard">
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-section">
+        <span class="company-name">License Tracking System</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-back">Back to List</button>
+        <button class="btn-primary">+ Add New</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header card shows only before submit -->
+    <div class="header-card" *ngIf="!isSubmitted">
+      <span>📜</span>
+      <div class="header-text">
+        <div class="header-title">License Tracking Wizard</div>
+        <div class="header-subtitle">Configure license tracking in 2 simple steps</div>
+      </div>
+    </div>
+
+    <!-- Summary View after submission -->
+    <div *ngIf="isSubmitted; else wizardContent">
+      <div class="summary-layout">
+        <!-- Left Side -->
+        <div class="summary-left">
+          <div class="summary-card">
+            <div class="summary-header">
+              <div class="summary-title">License Summary</div>
+              <button class="btn-edit" (click)="handleEdit()">Edit</button>
+            </div>
+            <div class="summary-body">
+              <!-- License Record Information -->
+              <div class="summary-section">
+                <div class="summary-section-title">
+                  <span>License Record</span>
+                  <span class="status-chip status-approved">Approved</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Reference Number</span>
+                  <span class="summary-value-large">{{ formData.licenseReference }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Issuing Agency</span>
+                  <span class="summary-value">{{ formData.issuingAgency }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Issue Date</span>
+                  <span class="summary-value">{{ formData.issueDate }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Expiration Date</span>
+                  <span class="summary-value">{{ formData.expirationDate }}</span>
+                </div>
+                <div class="summary-item" *ngIf="formData.licenseDescription">
+                  <span class="summary-key">Description</span>
+                  <span class="summary-value">{{ formData.licenseDescription }}</span>
+                </div>
+              </div>
+
+              <!-- Coverage & Holder -->
+              <div class="summary-section">
+                <div class="summary-section-title">Coverage & Holder</div>
+                <div class="summary-item">
+                  <span class="summary-key">Country of Export</span>
+                  <span class="summary-value">{{ formData.countryOfExport }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Currency</span>
+                  <span class="summary-value">{{ formData.licenseCurrency }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Authorized Licensee</span>
+                  <span class="summary-value">{{ formData.authorizedLicensee }}</span>
+                </div>
+              </div>
+
+              <!-- Header-Level Tracking -->
+              <div class="summary-section" *ngIf="formData.enableHeaderLevelTracking">
+                <div class="summary-section-title">Header-Level Values</div>
+                <div class="summary-item">
+                  <span class="summary-key">Total Quantity</span>
+                  <span class="summary-value">{{ (formData.totalLicensedQuantity || 0) | number }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Total Value</span>
+                  <span class="summary-value">{{ formatCurrency(formData.totalLicensedValue || 0) }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Remaining Quantity</span>
+                  <span class="summary-value">
+                    <span class="summary-badge badge-success">{{ (formData.remainingQuantityAvailable || 0) | number }}</span>
+                  </span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Remaining Value</span>
+                  <span class="summary-value">
+                    <span class="summary-badge badge-success">{{ formatCurrency(formData.remainingValueAvailable || 0) }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Tracking Configuration -->
+              <div class="summary-section">
+                <div class="summary-section-title">Tracking Setup</div>
+                <div class="summary-item">
+                  <span class="summary-key">Track Usage By</span>
+                  <span class="summary-value">
+                    <span class="summary-badge badge-info">{{ formData.trackUsageBy }}</span>
+                  </span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Track Items By</span>
+                  <span class="summary-value">
+                    <span class="summary-badge badge-info">{{ formData.trackItemsBy }}</span>
+                  </span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">License Limit</span>
+                  <span class="summary-value">{{ formData.licenseLimit }}</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-key">Decrement Type</span>
+                  <span class="summary-value">{{ formData.decrementType }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="summary-right">
+          <div class="summary-two-columns">
+            <!-- Column 1: License Issued For + License Lines -->
+            <div class="summary-column">
+              <div class="data-card">
+                <div class="data-card-header">
+                  <div class="data-card-title">License Issued For</div>
+                  <button class="btn-add btn-add-blue">+ Add</button>
+                </div>
+                <div class="data-card-body">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Country Of Import</th>
+                        <th style="width: 80px; text-align: center;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="country-name-with-flag">
+                            <span class="country-flag flag-kh"></span>
+                            <span>Cambodia</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="country-name-with-flag">
+                            <span class="country-flag flag-bg"></span>
+                            <span>Bulgaria</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="country-name-with-flag">
+                            <span class="country-flag flag-de"></span>
+                            <span>Germany</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="country-name-with-flag">
+                            <span class="country-flag flag-jp"></span>
+                            <span>Japan</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="data-card">
+                <div class="data-card-header">
+                  <div class="data-card-title">License Lines</div>
+                  <button class="btn-add btn-add-blue">+ Add</button>
+                </div>
+                <div class="data-card-body">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>ECCN</th>
+                        <th>License Qty/Value</th>
+                        <th>Rem. Qty/Value</th>
+                        <th style="width: 80px; text-align: center;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>9A515.a</td>
+                        <td>5,000 / $2,500,000</td>
+                        <td>5,000 / $2,500,000</td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3A001.b.1</td>
+                        <td>2,500 / $850,000</td>
+                        <td>2,100 / $714,000</td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>6A003.b.4</td>
+                        <td>1,200 / $420,000</td>
+                        <td>950 / $332,500</td>
+                        <td>
+                          <div class="action-icons">
+                            <button class="icon-btn" title="Edit">
+                              <span class="icon-edit">✏️</span>
+                            </button>
+                            <button class="icon-btn" title="Delete">
+                              <span class="icon-delete">🗑️</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: License Usage History -->
+            <div class="summary-column">
+              <div class="data-card">
+                <div class="data-card-header">
+                  <div class="data-card-title">License Usage History</div>
+                  <button class="btn-filter">Filter ▼</button>
+                </div>
+                <div class="data-card-body">
+                  <div class="usage-summary-bar">
+                    <div class="usage-bar-header">
+                      <div class="usage-bar-title">Total License Usage</div>
+                      <div class="usage-bar-stats">
+                        <div class="usage-stat-item">
+                          <span class="usage-stat-dot utilized"></span>
+                          <span class="usage-stat-label">Utilized:</span>
+                          <span class="usage-stat-value">$1,998,500</span>
+                        </div>
+                        <div class="usage-stat-item">
+                          <span class="usage-stat-dot remaining"></span>
+                          <span class="usage-stat-label">Remaining:</span>
+                          <span class="usage-stat-value">$501,500</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="usage-progress-bar">
+                      <div class="usage-progress-fill" style="width: 79.94%;">79.94%</div>
+                    </div>
+                  </div>
+
+                  <div class="usage-tree">
+                    <div class="usage-eccn-group-tree">
+                      <div class="usage-eccn-parent">
+                        <span>9A515.a</span>
+                        <button class="btn-see-all">See All</button>
+                      </div>
+                      <ul>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-001</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-kh"></span>
+                                <span>Cambodia</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">1,200</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$850,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-005</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-bg"></span>
+                                <span>Bulgaria</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">650</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$425,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-008</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-kh"></span>
+                                <span>Cambodia</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">350</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$225,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="usage-eccn-group-tree">
+                      <div class="usage-eccn-parent">
+                        <span>3A001.b.1</span>
+                        <button class="btn-see-all">See All</button>
+                      </div>
+                      <ul>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-003</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-bg"></span>
+                                <span>Bulgaria</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">180</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$96,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-007</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-kh"></span>
+                                <span>Cambodia</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">75</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$40,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-011</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-de"></span>
+                                <span>Germany</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">245</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$125,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="usage-eccn-group-tree">
+                      <div class="usage-eccn-parent">
+                        <span>6A003.b.4</span>
+                        <button class="btn-see-all">See All</button>
+                      </div>
+                      <ul>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-009</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-bg"></span>
+                                <span>Bulgaria</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">135</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$87,500</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="usage-transaction-line">
+                            <div class="usage-transaction-left">
+                              <span class="usage-transaction-id">TXN-2024-012</span>
+                              <span class="usage-country-badge">
+                                <span class="country-flag flag-jp"></span>
+                                <span>Japan</span>
+                              </span>
+                            </div>
+                            <div class="usage-transaction-right">
+                              <div class="usage-transaction-qty">
+                                <span class="usage-qty-label">Qty.</span>
+                                <span class="usage-qty-value">280</span>
+                              </div>
+                              <div class="usage-transaction-amount">
+                                <span class="usage-amount-label">Utilized</span>
+                                <span class="usage-amount-value">$175,000</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #wizardContent>
+      <!-- Progress Card -->
+      <div class="progress-card">
+        <div class="progress-steps">
+          <button class="progress-btn" (click)="handleBack()" [disabled]="currentStep === 1">
+            &lt; Previous Step
+          </button>
+
+          <div class="progress-nav">
+            <div
+              class="step"
+              [ngClass]="{ 'active': currentStep === 1, 'completed': currentStep > 1 }"
+            >
+              <div class="step-content">
+                <div class="step-number">1</div>
+                <span>License Document Information</span>
+              </div>
+            </div>
+            <div
+              class="step"
+              [ngClass]="{ 'active': currentStep === 2, 'completed': currentStep > 2 }"
+            >
+              <div class="step-content">
+                <div class="step-number">2</div>
+                <span>Tracking &amp; Usage Configuration</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="progress-btn next" (click)="currentStep === 2 ? handleSubmit() : handleNext()">
+            {{ currentStep === 2 ? 'Submit' : 'Next Step >' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Step Content -->
+      <div *ngIf="currentStep === 1" class="form-card">
+        <div class="step-heading">Enter License Details from Official Document</div>
+
+        <div class="two-column-layout">
+          <!-- Left Column -->
+          <div class="column column-left">
+            <div class="column-block">
+              <div class="column-header column-header-left">📋 License Record Information</div>
+              <div class="column-body">
+                <div class="column-grid">
+                  <div class="form-group">
+                    <label class="form-label required">License Reference Number</label>
+                    <input
+                      type="text"
+                      class="form-input"
+                      placeholder="Enter license reference number"
+                      [(ngModel)]="formData.licenseReference"
+                      name="licenseReference"
+                    />
+                    <div class="error-message" *ngIf="errors.licenseReference">{{ errors.licenseReference }}</div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required">Issuing Agency</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="formData.issuingAgency"
+                      name="issuingAgency"
+                    >
+                      <option value="">Select Issuing Agency</option>
+                      <option value="DOS">DOS - State Department</option>
+                      <option value="DOC">DOC - Commerce Department</option>
+                      <option value="DOT">DOT - Transportation Department</option>
+                      <option value="DHS">DHS - Homeland Security</option>
+                    </select>
+                    <div class="error-message" *ngIf="errors.issuingAgency">{{ errors.issuingAgency }}</div>
+                  </div>
+                </div>
+
+                <div class="column-grid">
+                  <div class="form-group">
+                    <label class="form-label required">Issue Date</label>
+                    <input
+                      type="date"
+                      class="form-input"
+                      [(ngModel)]="formData.issueDate"
+                      name="issueDate"
+                    />
+                    <div class="error-message" *ngIf="errors.issueDate">{{ errors.issueDate }}</div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required">Expiration Date</label>
+                    <input
+                      type="date"
+                      class="form-input"
+                      [(ngModel)]="formData.expirationDate"
+                      name="expirationDate"
+                    />
+                    <div class="error-message" *ngIf="errors.expirationDate">{{ errors.expirationDate }}</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">License Description</label>
+                  <textarea
+                    class="form-textarea"
+                    placeholder="Brief description of the license"
+                    [(ngModel)]="formData.licenseDescription"
+                    name="licenseDescription"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="column column-right">
+            <div class="column-block">
+              <div class="column-header column-header-right">🌍 License Coverage &amp; Holder Information</div>
+              <div class="column-body">
+                <div class="column-grid">
+                  <div class="form-group">
+                    <label class="form-label required">Country of Export</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="formData.countryOfExport"
+                      name="countryOfExport"
+                    >
+                      <option value="">Select Country</option>
+                      <option value="United States">United States</option>
+                      <option value="Canada">Canada</option>
+                      <option value="United Kingdom">United Kingdom</option>
+                      <option value="Germany">Germany</option>
+                      <option value="France">France</option>
+                      <option value="Japan">Japan</option>
+                      <option value="China">China</option>
+                      <option value="India">India</option>
+                    </select>
+                    <div class="error-message" *ngIf="errors.countryOfExport">{{ errors.countryOfExport }}</div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required">License Currency</label>
+                    <select
+                      class="form-select"
+                      [(ngModel)]="formData.licenseCurrency"
+                      name="licenseCurrency"
+                    >
+                      <option value="">Select</option>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      <option value="JPY">JPY</option>
+                      <option value="CAD">CAD</option>
+                      <option value="AUD">AUD</option>
+                    </select>
+                    <div class="error-message" *ngIf="errors.licenseCurrency">{{ errors.licenseCurrency }}</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required">Authorized Licensee</label>
+                  <select
+                    class="form-select"
+                    [(ngModel)]="formData.authorizedLicensee"
+                    name="authorizedLicensee"
+                  >
+                    <option value="">Select Role</option>
+                    <option value="Exporter">Exporter</option>
+                    <option value="Shipper">Shipper</option>
+                    <option value="Manufacturer">Manufacturer</option>
+                  </select>
+                  <div class="error-message" *ngIf="errors.authorizedLicensee">{{ errors.authorizedLicensee }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 2" class="form-card">
+        <div class="step-heading">Configure How You'll Track This License</div>
+
+        <div class="two-column-layout">
+          <!-- Left Column -->
+          <div class="column column-left">
+            <div class="column-block">
+              <div class="column-header column-header-left">📊 Usage Tracking Setup</div>
+              <div class="column-body">
+                <div class="column-grid">
+                  <div class="form-group">
+                    <label class="form-label required">Track Usage By</label>
+                    <div class="radio-group">
+                      <label class="radio-option" [ngClass]="{ 'checked': formData.trackUsageBy === 'Party' }">
+                        <input type="radio" name="trackUsageBy" value="Party" [(ngModel)]="formData.trackUsageBy" />
+                        <span class="radio-option-label">Party</span>
+                      </label>
+                      <label class="radio-option" [ngClass]="{ 'checked': formData.trackUsageBy === 'Country' }">
+                        <input type="radio" name="trackUsageBy" value="Country" [(ngModel)]="formData.trackUsageBy" />
+                        <span class="radio-option-label">Country</span>
+                      </label>
+                    </div>
+                    <div class="error-message" *ngIf="errors.trackUsageBy">{{ errors.trackUsageBy }}</div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label required">Track Items By</label>
+                    <div class="radio-group">
+                      <label class="radio-option" [ngClass]="{ 'checked': formData.trackItemsBy === 'ECCN' }">
+                        <input type="radio" name="trackItemsBy" value="ECCN" [(ngModel)]="formData.trackItemsBy" />
+                        <span class="radio-option-label">ECCN</span>
+                      </label>
+                      <label class="radio-option" [ngClass]="{ 'checked': formData.trackItemsBy === 'HS Code' }">
+                        <input type="radio" name="trackItemsBy" value="HS Code" [(ngModel)]="formData.trackItemsBy" />
+                        <span class="radio-option-label">HS Code</span>
+                      </label>
+                    </div>
+                    <div class="error-message" *ngIf="errors.trackItemsBy">{{ errors.trackItemsBy }}</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required">License Limit</label>
+                  <div class="radio-group">
+                    <label class="radio-option" [ngClass]="{ 'checked': formData.licenseLimit === 'Value' }">
+                      <input type="radio" name="licenseLimit" value="Value" [(ngModel)]="formData.licenseLimit" />
+                      <span class="radio-option-label">Value Only</span>
+                    </label>
+                    <label class="radio-option" [ngClass]="{ 'checked': formData.licenseLimit === 'Quantity' }">
+                      <input type="radio" name="licenseLimit" value="Quantity" [(ngModel)]="formData.licenseLimit" />
+                      <span class="radio-option-label">Quantity Only</span>
+                    </label>
+                    <label class="radio-option" [ngClass]="{ 'checked': formData.licenseLimit === 'Both' }">
+                      <input type="radio" name="licenseLimit" value="Both" [(ngModel)]="formData.licenseLimit" />
+                      <span class="radio-option-label">Both (Value &amp; Quantity)</span>
+                    </label>
+                  </div>
+                  <div class="error-message" *ngIf="errors.licenseLimit">{{ errors.licenseLimit }}</div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label required">Decrement Type</label>
+                  <select class="form-select" [(ngModel)]="formData.decrementType" name="decrementType">
+                    <option value="">Select Decrement Type</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Pick Slip">Pick Slip</option>
+                    <option value="Sales Order">Sales Order</option>
+                    <option value="Shipment">Shipment</option>
+                  </select>
+                  <div class="error-message" *ngIf="errors.decrementType">{{ errors.decrementType }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="column column-right">
+            <div class="column-block">
+              <div class="column-header column-header-right">⚙️ Tracking Configuration</div>
+              <div class="column-body">
+                <div class="form-group">
+                  <label class="form-label">Enable Header-Level Tracking</label>
+                  <div
+                    class="checkbox-wrapper"
+                    [ngClass]="{ 'checked': formData.enableHeaderLevelTracking }"
+                    (click)="handleChange('enableHeaderLevelTracking', !formData.enableHeaderLevelTracking)"
+                  >
+                    <input
+                      type="checkbox"
+                      [checked]="formData.enableHeaderLevelTracking"
+                      (click)="$event.stopPropagation()"
+                      (change)="handleChange('enableHeaderLevelTracking', $any($event.target).checked)"
+                    />
+                    <div class="checkbox-label">
+                      <div class="checkbox-title">Enable Header-Level Tracking</div>
+                      <div class="checkbox-description">
+                        Track single quantity and value for entire license
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="conditional-section" *ngIf="formData.enableHeaderLevelTracking; else headerLevelPlaceholder">
+                  <div class="conditional-header">Header-Level Values</div>
+                  <div class="conditional-fields">
+                    <div>
+                      <div class="form-group">
+                        <label class="form-label required">Total Licensed Quantity</label>
+                        <input
+                          type="number"
+                          class="form-input"
+                          placeholder="0"
+                          min="0"
+                          step="1"
+                          [(ngModel)]="formData.totalLicensedQuantity"
+                          name="totalLicensedQuantity"
+                          (ngModelChange)="handleChange('totalLicensedQuantity', $event)"
+                        />
+                        <div class="error-message" *ngIf="errors.totalLicensedQuantity">{{ errors.totalLicensedQuantity }}</div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label required">Total Licensed Value</label>
+                        <div class="input-with-prefix">
+                          <span class="input-prefix">{{ currencySymbol }}</span>
+                          <input
+                            type="number"
+                            class="form-input"
+                            placeholder="0.00"
+                            min="0"
+                            step="0.01"
+                            [(ngModel)]="formData.totalLicensedValue"
+                            name="totalLicensedValue"
+                            (ngModelChange)="handleChange('totalLicensedValue', $event)"
+                          />
+                        </div>
+                        <div class="error-message" *ngIf="errors.totalLicensedValue">{{ errors.totalLicensedValue }}</div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="form-group">
+                        <label class="form-label">Remaining Quantity Available</label>
+                        <input
+                          type="number"
+                          class="form-input"
+                          placeholder="0"
+                          [value]="formData.remainingQuantityAvailable || formData.totalLicensedQuantity || ''"
+                          readonly
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label">Remaining Value Available</label>
+                        <div class="input-with-prefix">
+                          <span class="input-prefix">{{ currencySymbol }}</span>
+                          <input
+                            type="number"
+                            class="form-input"
+                            placeholder="0.00"
+                            [value]="formData.remainingValueAvailable || formData.totalLicensedValue || ''"
+                            readonly
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <ng-template #headerLevelPlaceholder>
+                  <div class="conditional-section">
+                    <div class="conditional-placeholder">
+                      Enable "Header-Level Tracking" above to configure total quantity and value
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
